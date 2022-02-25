@@ -9,13 +9,20 @@ package timeofday;
  */
 public class TimeOfDay {
 	
-	public int getHours() { throw new RuntimeException("Not yet implemented"); }
-	public int getMinutes() { throw new RuntimeException("Not yet implemented"); }
+	/**
+	 * @invar | 0 <= hours && hours <= 23
+	 * @invar | 0 <= minutes && minutes <= 59
+	 */
+	private int hours;
+	private int minutes;
+	
+	public int getHours() { return hours; }
+	public int getMinutes() { return minutes; }
 	
 	/**
-	 * @post | result == getHours() * 60 * getMinutes()
+	 * @post | result == getHours() * 60 + getMinutes()
 	 */
-	public int getMinutesSinceMidnight() { throw new RuntimeException("Not yet implemented"); }
+	public int getMinutesSinceMidnight() { return hours * 60 + minutes; }
 	
 	/**
 	 * Initializes this object so that it stores Midnight.
@@ -23,7 +30,7 @@ public class TimeOfDay {
 	 * @post | getHours() == 0
 	 * @post | getMinutes() == 0
 	 */
-	public TimeOfDay() { throw new RuntimeException("Not yet implemented"); }
+	public TimeOfDay() {}
 	
 	/**
 	 * Initializes this object so that it stores the given time.
@@ -34,7 +41,15 @@ public class TimeOfDay {
 	 * @post | getHours() == hours
 	 * @post | getMinutes() == minutes
 	 */
-	public TimeOfDay(int hours, int minutes) { throw new RuntimeException("Not yet implemented"); }
+	public TimeOfDay(int hours, int minutes) {
+		if (hours < 0 || 23 < hours)
+			throw new IllegalArgumentException("`hours` out of range");
+		if (minutes < 0 || 59 < minutes)
+			throw new IllegalArgumentException("`minutes` out of range");
+		
+		this.hours = hours;
+		this.minutes = minutes;
+	}
 
 	/**
 	 * Sets this object's hours to the given value.
@@ -46,6 +61,11 @@ public class TimeOfDay {
 	 * 
 	 * @mutates_properties | getHours()
 	 */
-	public void setHours(int hours) { throw new RuntimeException("Not yet implemented"); }
+	public void setHours(int hours) {
+		if (hours < 0 || 23 < hours)
+			throw new IllegalArgumentException("`hours` out of range");
+		
+		this.hours = hours;
+	}
 	
 }
